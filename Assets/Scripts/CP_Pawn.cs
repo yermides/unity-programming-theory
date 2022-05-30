@@ -9,32 +9,41 @@ namespace ChessGame {
         public override List<Vector2Int> CheckPossiblePlays() {
             List<Vector2Int> possiblePositions = new List<Vector2Int>();
             BoardStateSO board = BoardStateSO.instance;
-            Vector2Int checkedPosition;
+            Vector2Int positionToCheck;
 
-            checkedPosition = BoardPosition + Vector2Int.up;
+            positionToCheck = BoardPosition + Vector2Int.up;
 
-            if (board.IsPositionEmpty(checkedPosition)) {
-                possiblePositions.Add(checkedPosition);
+            if (board.IsPositionEmpty(positionToCheck)) {
+                possiblePositions.Add(positionToCheck);
+            }
+
+            if(!_hasMoved) {
+                positionToCheck = BoardPosition + (Vector2Int.up * 2);
+
+                if (board.IsPositionEmpty(positionToCheck)) {
+                    possiblePositions.Add(positionToCheck);
+                }
             }
 
             // up right corner to eat another piece
-            checkedPosition = BoardPosition + Vector2Int.one;
+            positionToCheck = BoardPosition + (Vector2Int.up + Vector2Int.right);
 
-            if (!board.IsPositionEmpty(checkedPosition)) {
-                possiblePositions.Add(checkedPosition);
+            if (!board.IsPositionEmpty(positionToCheck)) {
+                possiblePositions.Add(positionToCheck);
             }
 
             // up left corner to eat another piece
 
-            checkedPosition = BoardPosition + (Vector2Int.up + Vector2Int.left) /*TODO*/;
+            positionToCheck = BoardPosition + (Vector2Int.up + Vector2Int.left) /*TODO*/;
 
-            if (!board.IsPositionEmpty(checkedPosition)) {
-                possiblePositions.Add(checkedPosition);
+            if (!board.IsPositionEmpty(positionToCheck)) {
+                possiblePositions.Add(positionToCheck);
             }
 
             return possiblePositions;
         }
 
+        /*
         private new void Update() {
             if(!_inputEnabled) return;
 
@@ -44,14 +53,12 @@ namespace ChessGame {
                 BoardPosition += new Vector2Int(0, 1);
             } else if(Input.GetKeyDown(KeyCode.S)) {
                 BoardPosition += new Vector2Int(0, -1);
+            } else if(Input.GetKeyDown(KeyCode.A)) {
+                BoardPosition += new Vector2Int(-1, 0);
+            } else if(Input.GetKeyDown(KeyCode.D)) {
+                BoardPosition += new Vector2Int(1, 0);
             }
-
-            // if(Input.GetKeyDown(KeyCode.Space)) {
-            //     Debug.Log("derived");
-            // }
-
-            
         }
-
+        */
     }
 }

@@ -1,5 +1,5 @@
 namespace ChessGame {
-    public enum ChessUnitTypes {
+    public enum ChessUnitType {
             Pawn
         ,   Tower
         ,   Horse

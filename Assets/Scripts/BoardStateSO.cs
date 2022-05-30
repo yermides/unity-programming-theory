@@ -12,6 +12,10 @@ namespace ChessGame {
         [SerializeField] TMP_Text pieceboardDebug;
         // [SerializeField] private List<List<ChessPieceBase>> _pieceboard = new List<List<ChessPieceBase>>(kSIZE);
 
+        public bool IsPositionOutOfBounds(Vector2Int position) {
+            return position.x < 0 || position.x >= kSIZE || position.y < 0 || position.y >= kSIZE;
+        }
+
         public bool IsPositionEmpty(Vector2Int position) {
             // out of bounds check, for now hardcoded
             if(position.x < 0 || position.x >= kSIZE) return false;
@@ -28,6 +32,10 @@ namespace ChessGame {
 
         public void ClearPosition(ChessPieceBase piece) {
             _pieceboard[piece.PreviousBoardPosition.x, piece.PreviousBoardPosition.y] = null;
+        }
+
+        public ChessPieceBase GetPiece(Vector2Int position) {
+            return _pieceboard[position.x, position.y];
         }
 
         public void PrintState() {
