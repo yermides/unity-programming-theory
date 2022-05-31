@@ -4,20 +4,31 @@ using System.Collections.Generic;
 
 namespace ChessGame {
     public abstract class ChessPieceBase : MonoBehaviour {
-        public static ChessPieceBase selected = null;
+        public static ChessPieceBase selected;
+        // public static ChessPieceBase Selected {
+        //     get { return selected; }
+        //     set { 
+        //         selected = value;
+        //         OnMouseDownAction?.Invoke();
+        //     }
+        // }
+
         protected Vector2Int _prevposition;
         [SerializeField] protected Vector2Int _position;
         [SerializeField] protected ChessTeam _team;
         [SerializeField] protected ChessUnitType _typeIdentifier;
         [SerializeField] protected GameObject slotPrefab;
         [SerializeField] protected bool _overrideTransfromWithPosition = true;
-        // [SerializeField] private UnityAction OnMouseDownAction;
+        protected bool _hasMoved = false;
+
+        // [SerializeField] private static UnityAction OnMouseDownAction;
 
         public Vector2Int BoardPosition {
             get { return _position; }
             set {
                 _prevposition = _position;
                 _position = value;
+                _hasMoved = true;
                 ApplyBoardPositionToTransform();
             }
         }
@@ -48,6 +59,10 @@ namespace ChessGame {
             } else {
                 SceneToBoardPosition();
             }
+        }
+
+        private void Start() {
+            _hasMoved = false;
         }
 
         private void OnMouseDown() {
@@ -116,6 +131,15 @@ namespace ChessGame {
                 positionToCheck += direction;
             }
         }
+
+        protected void AddPositionIfPossible(List<Vector2Int> plays, BoardStateSO board, Vector2Int position) {
+                Vector2Int positionToCheck = position;
+
+                // if(!board.IsPositionOutOfBounds(positionToCheck) && (board.IsPositionEmpty(positionToCheck)) || board.GetPiece(positionToCheck).Team != Team) {
+                if(!board.IsPositionOutOfBounds(positionToCheck) && board.IsPositionEmpty(positionToCheck)) {
+                    plays.Add(positionToCheck);
+                }
+            }
         
         public abstract List<Vector2Int> CheckPossiblePlays();
 

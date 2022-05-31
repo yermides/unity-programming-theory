@@ -15,3 +15,7 @@ MonoBehaviour:
   _chessPieces:
   - {fileID: 949252988, guid: ea2ada065b3e96441bc1c0b39200ccd6, type: 3}
   - {fileID: 7320993349686692391, guid: d8bb941a78ca5c3478d1b69393b24750, type: 3}
+  - {fileID: 3508958703238128088, guid: 90b8f88cb6400cc4dbb1d1fcb55e083e, type: 3}
+  - {fileID: 5670488524351296589, guid: e86bb9b6fe3b51744b973390b1f50761, type: 3}
+  - {fileID: 594003945134951432, guid: 0c67433646a04074a8ea126771144d79, type: 3}
+  - {fileID: 7875641268865599532, guid: 86f828ad2e8b59e48b2703adf40021b7, type: 3}
