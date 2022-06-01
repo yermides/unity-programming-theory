@@ -11,7 +11,7 @@ namespace ChessGame {
             positionToCheck = BoardPosition + Vector2Int.up;
             AddPositionIfPossible(possiblePositions, board, positionToCheck);
 
-            if(!_hasMoved) {
+            if(!_hasMoved && board.IsPositionEmpty(positionToCheck)) {
                 positionToCheck += Vector2Int.up;
                 AddPositionIfPossible(possiblePositions, board, positionToCheck);
             }
