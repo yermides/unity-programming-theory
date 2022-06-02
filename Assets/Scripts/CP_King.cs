@@ -18,12 +18,11 @@ namespace ChessGame {
                 ,   Vector2IntExtensions.downright
             };
 
-            BoardStateSO board = BoardStateSO.instance;
             Vector2Int positionToCheck;
 
             foreach(var offset in playsOffset) {
                 positionToCheck = BoardPosition + offset;
-                AddPositionIfPossible(plays, board, positionToCheck);
+                AddPositionIfPossible(plays, positionToCheck);
             }
 
             return plays;

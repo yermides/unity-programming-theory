@@ -154,7 +154,7 @@ Transform:
   - {fileID: 217945981}
   - {fileID: 910203612}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &84599677
 GameObject:
@@ -543,9 +543,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Hi! I' Lucas Mataix Garrig\xF3s, a Multimedia Engineer graduate and this
-    is a chess movement example I made. Find me on linkedin:\n\nhttps://www.linkedin.com/in/lucas-mataix-garrigos/\n\nAssets
-    and their creators are:\n\nhttps://brokenvector.itch.io/low-poly-chess-pack\nhttps://disven.itch.io/pixel-game-user-interface\nhttps://somepx.itch.io/humble-fonts-free\n"
+  m_text: "Hi! I' Lucas Mataix Garrig\xF3s, a Multimedia Engineering graduate and
+    this is a chess movement example I made. Find me on:\n\n- https://github.com/yermides\n-
+    https://www.linkedin.com/in/lucas-mataix-garrigos/\n\nAssets and their creators
+    are:\n\n- https://brokenvector.itch.io/low-poly-chess-pack\n- https://disven.itch.io/pixel-game-user-interface\n-
+    https://somepx.itch.io/humble-fonts-free\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 31f0fe6e929637141bb22b281e612b7b, type: 2}
   m_sharedMaterial: {fileID: -2492699672031892490, guid: 31f0fe6e929637141bb22b281e612b7b,
@@ -573,8 +575,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 44
+  m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -988,7 +990,7 @@ Transform:
   m_Children:
   - {fileID: 434655098}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1353148764
 GameObject:

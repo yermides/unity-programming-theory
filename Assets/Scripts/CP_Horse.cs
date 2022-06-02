@@ -6,7 +6,6 @@ namespace ChessGame {
     public class CP_Horse : ChessPieceBase {
         public override List<Vector2Int> CheckPossiblePlays() {
             List<Vector2Int> possiblePositions = new List<Vector2Int>();
-            BoardStateSO board = BoardStateSO.instance;
             const int Steps = 3;
             
             Vector2Int[] directions = {
@@ -20,8 +19,8 @@ namespace ChessGame {
                     Vector2Int positionToCheck = BoardPosition + (direction * (Steps - movesInFirstPart));
                     Vector2Int leftCheck = positionToCheck + (Vector2Int.left * movesInFirstPart);
                     Vector2Int rightCheck = positionToCheck + (Vector2Int.right * movesInFirstPart);
-                    AddPositionIfPossible(possiblePositions, board, leftCheck);
-                    AddPositionIfPossible(possiblePositions, board, rightCheck);
+                    AddPositionIfPossible(possiblePositions, leftCheck);
+                    AddPositionIfPossible(possiblePositions, rightCheck);
                 }
             }
 

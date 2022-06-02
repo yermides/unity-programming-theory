@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace ChessGame {
     public abstract class ChessPieceBase : MonoBehaviour {
         public static ChessPieceBase selected;
+        protected static BoardState boardState = new BoardState();
         // public static ChessPieceBase Selected {
         //     get { return selected; }
         //     set { 
@@ -20,7 +21,6 @@ namespace ChessGame {
         [SerializeField] protected GameObject slotPrefab;
         [SerializeField] protected bool _overrideTransfromWithPosition = true;
         protected bool _hasMoved = false;
-
         // [SerializeField] private static UnityAction OnMouseDownAction;
 
         public Vector2Int BoardPosition {
@@ -66,7 +66,6 @@ namespace ChessGame {
         }
 
         private void OnMouseDown() {
-            Debug.Log("I clicked a piece");
             BoardSlot.DestroyAllInScene();
             selected = this;
             // OnMouseDownAction?.Invoke();
@@ -82,20 +81,6 @@ namespace ChessGame {
             }
         }
 
-        private void OnMouseUp() {
-            Debug.Log("I stopped clicked a piece");
-        }
-
-        protected void Update() {
-            if(Input.GetKeyDown(KeyCode.Space)) {
-                List<Vector2Int> plays = CheckPossiblePlays();
-                BoardStateSO board = BoardStateSO.instance;
-                board.PrintState();
-
-                // Debug.Log(plays.Count);
-            }
-        }
-
         #endregion
 
         #region ChessPieceBase
@@ -105,13 +90,50 @@ namespace ChessGame {
         }
 
         public void SceneToBoardPosition(Vector3 position) {
-            // _position = new Vector2Int((int)position.x, (int)position.z);
             _prevposition = _position;
             _position = Vector2Int.CeilToInt(new Vector2(position.x, position.z));
             ApplyBoardPositionToTransform();
         }
 
         [ContextMenu("Apply Board Position To Transform")]
+        public void ApplyBoardPositionToTransform() {
+            boardState.RemovePiece(PreviousBoardPosition);
+            gameObject.transform.localPosition = new Vector3(_position.x, 0, _position.y);
+            boardState.PlacePiece(this);
+        }
+
+        protected void CheckDirection(List<Vector2Int> plays, Vector2Int direction) {
+            Vector2Int positionToCheck = BoardPosition + direction;
+
+            while(!boardState.IsPositionOutOfBounds(positionToCheck) && boardState.IsPositionEmpty(positionToCheck)) {
+                plays.Add(positionToCheck);
+                positionToCheck += direction;
+            }
+        }
+
+        protected void AddPositionIfPossible(List<Vector2Int> plays, Vector2Int positionToCheck) {
+            if(!boardState.IsPositionOutOfBounds(positionToCheck) && boardState.IsPositionEmpty(positionToCheck)) {
+                plays.Add(positionToCheck);
+            }
+        }
+
+        public abstract List<Vector2Int> CheckPossiblePlays();
+
+        #endregion
+    }
+}
+/*
+        protected void AddPositionIfPossible(List<Vector2Int> plays, BoardStateSO board, Vector2Int position) {
+            Vector2Int positionToCheck = position;
+
+            // if(!board.IsPositionOutOfBounds(positionToCheck) && (board.IsPositionEmpty(positionToCheck)) || board.GetPiece(positionToCheck).Team != Team) {
+            if(!board.IsPositionOutOfBounds(positionToCheck) && board.IsPositionEmpty(positionToCheck)) {
+                plays.Add(positionToCheck);
+            }
+        }
+        */
+/*
+[ContextMenu("Apply Board Position To Transform")]
         public void ApplyBoardPositionToTransform() {
             BoardStateSO board = BoardStateSO.instance;
             board.ClearPosition(this);
@@ -122,7 +144,7 @@ namespace ChessGame {
             board.FillPosition(this);
         }
 
-        protected void CheckDirection(List<Vector2Int> plays, Vector2Int direction) {
+protected void CheckDirection(List<Vector2Int> plays, Vector2Int direction) {
             BoardStateSO board = BoardStateSO.instance;
             Vector2Int positionToCheck = BoardPosition + direction;
 
@@ -133,16 +155,12 @@ namespace ChessGame {
         }
 
         protected void AddPositionIfPossible(List<Vector2Int> plays, BoardStateSO board, Vector2Int position) {
-                Vector2Int positionToCheck = position;
+            Vector2Int positionToCheck = position;
 
-                // if(!board.IsPositionOutOfBounds(positionToCheck) && (board.IsPositionEmpty(positionToCheck)) || board.GetPiece(positionToCheck).Team != Team) {
-                if(!board.IsPositionOutOfBounds(positionToCheck) && board.IsPositionEmpty(positionToCheck)) {
-                    plays.Add(positionToCheck);
-                }
+            // if(!board.IsPositionOutOfBounds(positionToCheck) && (board.IsPositionEmpty(positionToCheck)) || board.GetPiece(positionToCheck).Team != Team) {
+            if(!board.IsPositionOutOfBounds(positionToCheck) && board.IsPositionEmpty(positionToCheck)) {
+                plays.Add(positionToCheck);
             }
-        
-        public abstract List<Vector2Int> CheckPossiblePlays();
+        }
 
-        #endregion
-    }
-}
+*/

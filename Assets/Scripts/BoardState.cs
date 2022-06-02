@@ -2,20 +2,21 @@ using System;
 using UnityEngine;
 
 namespace ChessGame {
-    // Aiming to replace BoardStateSO, implement as an static class inside ChessPieceBase
-    // Currently unused
     public class BoardState {
         private const int kSIZE = 8;
         private ChessPieceBase[,] _pieceboard = new ChessPieceBase[kSIZE, kSIZE];
 
-        private bool IsPositionOutOfBounds(Vector2Int position) {
+        public bool IsPositionOutOfBounds(Vector2Int position) {
             return position.x < 0 || position.x >= kSIZE || position.y < 0 || position.y >= kSIZE;
         }
 
         private void ThrowErrorIfOutOfBounds(Vector2Int position) {
-            if(!IsPositionOutOfBounds(position)) return;
-
-            throw new IndexOutOfRangeException($"The chess board only has numbers from [0,0] to [{kSIZE-1}, {kSIZE-1}], and you entered {position}");
+            #if UNITY_EDITOR
+                if(!IsPositionOutOfBounds(position)) return;
+                throw new IndexOutOfRangeException($"The chess board only has numbers from [0,0] to [{kSIZE-1}, {kSIZE-1}], and you entered {position}");
+            #else
+                // Do nothing
+            #endif
         }
 
         public bool IsPositionEmpty(Vector2Int position) {
